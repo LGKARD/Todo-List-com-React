@@ -18,7 +18,11 @@ function App() {
       setTodos([...todos, newTodoItem])
       setNewTodo("")
     }
+  }
 
+  const removerTarefa = (id: string) => {
+    const updatedTodos = todos.filter((todo) => todo.id !== id)
+    setTodos(updatedTodos)
   }
 
   const marcarCompleta = (id: string) => {
@@ -46,6 +50,7 @@ function App() {
                 <li key={todo.id}>
                   <input type="checkbox" checked={todo.completed} onChange={() => marcarCompleta(todo.id)} />
                   <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>{todo.text}</span>
+                  <button onClick={() => removerTarefa(todo.id)}>Remover</button>
                 </li>
               ))
             }
