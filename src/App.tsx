@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
+import { useTheme } from './themeContext'
 
 interface TodoItem {
   id: string
@@ -9,6 +10,7 @@ interface TodoItem {
 
 function App() {
   const chaveLocalStorage = 'todos'
+  const {theme, toggleTheme} = useTheme()
   const [todos, setTodos] = useState<TodoItem[]>([])
   const [newTodo, setNewTodo] = useState<string>('')
   const [estaCarregado, setEstaCarregado] = useState<boolean>(false)
@@ -59,8 +61,8 @@ function App() {
 
   return (
     <>
-      <div className='app'>
-        <div className='container'>
+      <div className={`app ${theme}`}>
+        <div className={`container ${theme}`}>
           <h1>Todo List - {obterTarefasCompletas()} / { todos.length}</h1>
           <div className='input-container'>
             <input type='text' value={newTodo} onChange={(e) => setNewTodo(e.target.value)} />
@@ -77,6 +79,7 @@ function App() {
               ))
             }
           </ol>
+          <button onClick={toggleTheme}>Alterar para o tema {theme === 'light' ? 'escuro' : 'claro'}</button>
         </div>
       </div>
     </>
